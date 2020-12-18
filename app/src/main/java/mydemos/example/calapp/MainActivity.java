@@ -2,6 +2,7 @@ package mydemos.example.calapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -17,17 +18,12 @@ import mydemos.example.calapp.model.calc;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private double height;
-    private double weight;
-    private int age;
     private String sex;
     private double calorie;
 
     private EditText heightEdit;
     private EditText ageEdit;
     private EditText weightEdit;
-
-    private TextView suggestText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,10 +105,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void setCalc() {
 
         calc calc = new calc();
 
+        double height;
         if (TextUtils.isEmpty(heightEdit.getText().toString())){
             return;
         }else{
@@ -122,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         }
 
+        double weight;
         if (TextUtils.isEmpty(weightEdit.getText().toString())){
             return;
         }else{
@@ -131,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         }
 
+        int age;
         if (TextUtils.isEmpty(ageEdit.getText().toString())){
             return;
         }else{
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         }
 
-        suggestText = findViewById(R.id.activity_main_suggest_text);
+        TextView suggestText = findViewById(R.id.activity_main_suggest_text);
 
         if(sex.equals("Male")){
             calorie = calc.getMaleCalorie(height, weight, age);

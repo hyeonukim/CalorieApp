@@ -7,6 +7,7 @@
     <string name="activity_main_sex_text_sex">Sex</string>
     <string name="activity_main_age_text">Age</string>
     <string name="activity_main_age_edit_hint">ex:20</string>
+    <string name="activity_main_calorie_text">How Much Calorie You should take</string>
     <string-array name="Sex">
         <item>Male</item>
         <item>Female</item>
