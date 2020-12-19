@@ -1,6 +1,7 @@
 package mydemos.example.calapp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -8,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -38,7 +40,19 @@ public class MainActivity extends AppCompatActivity{
         setAge();
         setGender();
         setDiet();
+        setMeal();
 
+    }
+
+    private void setMeal() {
+        Button meal = findViewById(R.id.activity_main_meal_button);
+        meal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = Meal.makeLaunchIntent(MainActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
 

@@ -10,6 +10,8 @@
     <string name="activity_main_calorie_text">How Much Calorie You should take</string>
     <string name="activity_main_suggest_text">Enter your information</string>
     <string name="activity_main_diet_text">I want to</string>
+    <string name="activity_main_meal_button">Meal Suggestion</string>
+    <string name="activity_meal_main_text">Meal Suggestion</string>
     <string-array name="Sex">
         <item>Male</item>
         <item>Female</item>
