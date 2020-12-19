@@ -1,7 +1,5 @@
 package mydemos.example.calapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,11 +12,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.DecimalFormat;
+
 import mydemos.example.calapp.model.calc;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity{
 
-    private String sex;
+    private String Sex;
+    private String Diet;
     private double calorie;
 
     private EditText heightEdit;
@@ -34,17 +37,53 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setWeight();
         setAge();
         setGender();
+        setDiet();
 
     }
 
+
+    //gets user's option for either lose, maintain, gain weight
+    private void setDiet() {
+        Spinner diet = findViewById(R.id.activity_main_diet_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.Diet, android.R.layout.simple_spinner_item);
+        diet.setAdapter(adapter);
+        diet.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Diet = adapterView.getItemAtPosition(i).toString();
+                setCalc();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+    }
+
+    //gets user's option for gender
     private void setGender() {
         Spinner sex = findViewById(R.id.activity_main_sex_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Sex, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Sex, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sex.setAdapter(adapter);
-        sex.setOnItemSelectedListener(this);
+        sex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Sex = adapterView.getItemAtPosition(i).toString();
+                setCalc();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
+    //gets user's age
     private void setAge() {
 
         ageEdit = (EditText) findViewById(R.id.activity_main_age_edit);
@@ -65,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    //gets user's weight
     private void setWeight() {
 
         weightEdit = (EditText) findViewById(R.id.activity_main_weight_edit);
@@ -85,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    //gets user's height
     private void setHeight() {
 
         heightEdit = (EditText) findViewById(R.id.activity_main_height_edit);
@@ -105,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    //calculates calories intake suggested for user
     @SuppressLint("SetTextI18n")
     private void setCalc() {
 
@@ -141,27 +183,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
 
         TextView suggestText = findViewById(R.id.activity_main_suggest_text);
-
-        if(sex.equals("Male")){
-            calorie = calc.getMaleCalorie(height, weight, age);
+        if(Sex.equals("Male")){
+            if(Diet.equals("Lose weight")){
+                calorie = calc.getMaleLoseCalorie(height, weight, age);
+            }
+            if(Diet.equals("Maintain weight")) {
+                calorie = calc.getMaleMaintainCalorie(height, weight, age);
+            }
+            if(Diet.equals("Gain weight")){
+                calorie = calc.getMaleGainCalorie(height, weight, age);
+            }
         }
-        if(sex.equals("Female")){
-            calorie = calc.getFemaleCalorie(height, weight, age);
+        if(Sex.equals("Female")){
+            if(Diet.equals("Lose weight")){
+                calorie = calc.getFemaleLoseCalorie(height, weight, age);
+            }
+            if(Diet.equals("Maintain weight")) {
+                calorie = calc.getFemaleMaintainCalorie(height, weight, age);
+            }
+            if(Diet.equals("Gain weight")){
+                calorie = calc.getFemaleGainCalorie(height, weight, age);
+            }
         }
 
-        suggestText.setText("" + calorie + " calories");
-
-
+        DecimalFormat df = new DecimalFormat("###.##");
+        suggestText.setText("" + df.format(calorie) + " calories");
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-         sex = adapterView.getItemAtPosition(i).toString();
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 }

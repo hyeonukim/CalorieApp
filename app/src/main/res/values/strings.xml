@@ -9,8 +9,14 @@
     <string name="activity_main_age_edit_hint">ex:20</string>
     <string name="activity_main_calorie_text">How Much Calorie You should take</string>
     <string name="activity_main_suggest_text">Enter your information</string>
+    <string name="activity_main_diet_text">I want to</string>
     <string-array name="Sex">
         <item>Male</item>
         <item>Female</item>
+    </string-array>
+    <string-array name="Diet">
+        <item>Lose weight</item>
+        <item>Maintain weight</item>
+        <item>Gain weight</item>
     </string-array>
 </resources>
