@@ -12,6 +12,14 @@
     <string name="activity_main_diet_text">I want to</string>
     <string name="activity_main_meal_button">Meal Suggestion</string>
     <string name="activity_meal_main_text">Meal Suggestion</string>
+    <string name="activity_main_active_text">I am</string>
+    <string-array name="Active">
+        <item>sedentary (little or no exercise)</item>
+        <item>lightly active (light exercise/sports 1–3 days/week)</item>
+        <item>moderately active (moderate exercise/sports 3–5 days/week)</item>
+        <item>very active (hard exercise/sports 6–7 days/week)</item>
+        <item>extra active (very hard exercise/sports, physical job or 2x training)</item>
+    </string-array>
     <string-array name="Sex">
         <item>Male</item>
         <item>Female</item>

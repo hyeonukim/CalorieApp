@@ -21,7 +21,7 @@ public class calc {
     }
     //gets male calorie suggested intake to gain weight
     public double getMaleGainCalorie(double height, double weight, int age){
-        this.calorie = 66.47 + (13.76 * weight) + (5 * height) - (6.76 * age) + 500;
+        this.calorie = ((655.1 + (9.56 * weight) + (1.85 * height) - (4.88 * age))) * 1.15;
         if (calorie <= 0){
             calorie = 0;
         }
@@ -45,7 +45,7 @@ public class calc {
     }
     //gets female calorie suggested intake to gain weight
     public double getFemaleGainCalorie(double height, double weight, int age){
-        this.calorie = 655.1 + (9.56 * weight) + (1.85 * height) - (4.88 * age) + 500;
+        this.calorie = ((655.1 + (9.56 * weight) + (1.85 * height) - (4.88 * age))) * 1.15;
         if (calorie <= 0){
             calorie = 0;
         }

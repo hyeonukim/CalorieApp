@@ -2,6 +2,7 @@ package mydemos.example.calapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity{
 
     private String Sex;
     private String Diet;
+    private String Active;
     private double calorie;
 
     private EditText heightEdit;
@@ -41,7 +43,28 @@ public class MainActivity extends AppCompatActivity{
         setGender();
         setDiet();
         setMeal();
+        setActive();
 
+    }
+
+    //sets user's active level
+    private void setActive() {
+        Spinner active = findViewById(R.id.activity_main_active_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Active, android.R.layout.simple_spinner_item);
+        active.setAdapter(adapter);
+
+        active.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Active = adapterView.getItemAtPosition(i).toString();
+                setCalc();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void setMeal() {
@@ -100,7 +123,7 @@ public class MainActivity extends AppCompatActivity{
     //gets user's age
     private void setAge() {
 
-        ageEdit = (EditText) findViewById(R.id.activity_main_age_edit);
+        ageEdit = findViewById(R.id.activity_main_age_edit);
         ageEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -121,7 +144,7 @@ public class MainActivity extends AppCompatActivity{
     //gets user's weight
     private void setWeight() {
 
-        weightEdit = (EditText) findViewById(R.id.activity_main_weight_edit);
+        weightEdit = findViewById(R.id.activity_main_weight_edit);
         weightEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -142,7 +165,7 @@ public class MainActivity extends AppCompatActivity{
     //gets user's height
     private void setHeight() {
 
-        heightEdit = (EditText) findViewById(R.id.activity_main_height_edit);
+        heightEdit = findViewById(R.id.activity_main_height_edit);
         heightEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -218,6 +241,22 @@ public class MainActivity extends AppCompatActivity{
             if(Diet.equals("Gain weight")){
                 calorie = calc.getFemaleGainCalorie(height, weight, age);
             }
+        }
+
+        if(Active.equals("sedentary (little or no exercise)")){
+            calorie *= 1.2;
+        }
+        if(Active.equals("lightly active (light exercise/sports 1–3 days/week)")){
+            calorie *= 1.375;
+        }
+        if(Active.equals("moderately active (moderate exercise/sports 3–5 days/week)")){
+            calorie *= 1.55;
+        }
+        if(Active.equals("very active (hard exercise/sports 6–7 days/week)")){
+            calorie *= 1.725;
+        }
+        if(Active.equals("extra active (very hard exercise/sports, physical job or 2x training)")){
+            calorie *= 1.9;
         }
 
         DecimalFormat df = new DecimalFormat("###.##");
