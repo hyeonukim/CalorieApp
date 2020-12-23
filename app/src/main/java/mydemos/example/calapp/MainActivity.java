@@ -1,6 +1,7 @@
 package mydemos.example.calapp;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -59,13 +60,13 @@ public class MainActivity extends AppCompatActivity{
                 Active = adapterView.getItemAtPosition(i).toString();
                 setCalc();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
     }
+
 
     private void setMeal() {
         Button meal = findViewById(R.id.activity_main_meal_button);
@@ -96,8 +97,6 @@ public class MainActivity extends AppCompatActivity{
 
             }
         });
-
-
     }
 
     //gets user's option for gender
@@ -124,6 +123,8 @@ public class MainActivity extends AppCompatActivity{
     private void setAge() {
 
         ageEdit = findViewById(R.id.activity_main_age_edit);
+        final SharedPreferences prefs = getSharedPreferences("age", MODE_PRIVATE);
+        ageEdit.setText(prefs.getString("age", ""));
         ageEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -135,6 +136,7 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void afterTextChanged(Editable editable) {
+                prefs.edit().putString("age", editable.toString()).apply();
                 setCalc();
             }
         });
@@ -145,6 +147,8 @@ public class MainActivity extends AppCompatActivity{
     private void setWeight() {
 
         weightEdit = findViewById(R.id.activity_main_weight_edit);
+        final SharedPreferences prefs = getSharedPreferences("age", MODE_PRIVATE);
+        weightEdit.setText(prefs.getString("weight", ""));
         weightEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -156,6 +160,7 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void afterTextChanged(Editable editable) {
+                prefs.edit().putString("weight", editable.toString()).apply();
                 setCalc();
             }
         });
@@ -166,6 +171,8 @@ public class MainActivity extends AppCompatActivity{
     private void setHeight() {
 
         heightEdit = findViewById(R.id.activity_main_height_edit);
+        final SharedPreferences prefs = getSharedPreferences("age", MODE_PRIVATE);
+        heightEdit.setText(prefs.getString("height", ""));
         heightEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -177,6 +184,7 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void afterTextChanged(Editable editable) {
+                prefs.edit().putString("height", editable.toString()).apply();
                 setCalc();
             }
         });
@@ -220,6 +228,13 @@ public class MainActivity extends AppCompatActivity{
         }
 
         TextView suggestText = findViewById(R.id.activity_main_suggest_text);
+
+        if (Diet == null){
+            Diet = "Lose weight";
+        }
+        if (Active == null){
+            Active = "sedentary (little or no exercise)";
+        }
         if(Sex.equals("Male")){
             if(Diet.equals("Lose weight")){
                 calorie = calc.getMaleLoseCalorie(height, weight, age);
